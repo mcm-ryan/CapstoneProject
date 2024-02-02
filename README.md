@@ -2,7 +2,7 @@
 
 Team Members: Mark Lopez, Ryan McMaster, Mattew Magnotta, and Jean-Jacques Akpakoun
 
-This repository will host code for our Cpatsone Project. 
+This repository will host code for our Capstone Project. 
 
 We intend to create an application that will...
 -  Integrates voice recognition and authenticated voice commands with a voice recognition ML library.  
