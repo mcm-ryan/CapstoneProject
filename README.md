@@ -1,4 +1,4 @@
-# Team 8 Capstone project
+# Team 8: Capstone Project
 
 Team Members: Mark Lopez, Ryan McMaster, Mattew Magnotta, and Jean-Jacques Akpakoun
 
