@@ -44,17 +44,19 @@
 }
 
 .boxes {
-    display: flex;
     height: 130px;
     width: 130px;
     background-color: aliceblue;
     border: 4px, black;
     border-radius: 12px;
     cursor:pointer;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .boxes img{
-    margin: 30px 30px;
+    margin: 25px 10px;
 }
 
 .board{
