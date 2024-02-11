@@ -87,7 +87,7 @@ export const TicTacToe = () => {
   const reset = () => {
     setLock(false);
     data = ["", "", "", "", "", "", "", "", ""];
-    titleRef.current.innerHTML = 'Tic Tac Toe';
+    titleRef.current.innerHTML = 'Tic Talk Toe';
     box_array.map((e)=>{
       e.current.innerHTML = "";
     })
@@ -96,7 +96,7 @@ export const TicTacToe = () => {
 
   return (
     <div className='container'>
-      <h1 className='title' ref={titleRef}>Tic Tac Toe</h1>
+      <h1 className='title' ref={titleRef}>Tic Talk Toe</h1>
       <div className='board'>
         <div className='row1'>
           <div className="boxes" ref={box1} onClick={(e) => { toggle(e, 0) }}></div>
