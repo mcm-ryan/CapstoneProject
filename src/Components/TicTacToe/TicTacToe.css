@@ -66,3 +66,26 @@
     display: flex;
     margin: auto;
 }
+
+.back-button {
+    background-color: white;
+    padding: 15px 32px;
+    border: none;
+    color: #0069B0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+/* Additional styling for hover effect */
+.back-button:hover {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    /* Darker Green */
+}

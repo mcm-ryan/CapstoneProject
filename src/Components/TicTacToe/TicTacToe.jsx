@@ -7,7 +7,7 @@ import cross_icon from '../Assets/cross.png';
 let data = ["", "", "", "", "", "", "", "", ""];
 
 
-export const TicTacToe = () => {
+export const TicTacToe = ({ onBack }) => {
 
   let [count, setCount] = useState(0);
   let [lock, setLock] = useState(false);
@@ -23,7 +23,7 @@ export const TicTacToe = () => {
   let box9 = useRef(null);
 
   let box_array = [box1, box2, box3, box4, box5, box6, box7, box8, box9];
-  
+
   const toggle = (e, num) => {
     if (lock) {
       return 0;
@@ -76,7 +76,7 @@ export const TicTacToe = () => {
   // Func to update the UI to reflect the winner of a game and lock the game to prevent further interactions
   const won = (winner) => {
     setLock(true);
-    if (winner==="x"){
+    if (winner === "x") {
       titleRef.current.innerHTML = 'Winner:   <img src=' + cross_icon + '>';
     } else {
       titleRef.current.innerHTML = 'Winner:   <img src=' + circle_icon + '>';
@@ -88,7 +88,7 @@ export const TicTacToe = () => {
     setLock(false);
     data = ["", "", "", "", "", "", "", "", ""];
     titleRef.current.innerHTML = 'Tic Talk Toe';
-    box_array.map((e)=>{
+    box_array.map((e) => {
       e.current.innerHTML = "";
     })
   }
@@ -114,7 +114,8 @@ export const TicTacToe = () => {
           <div className="boxes" ref={box9} onClick={(e) => { toggle(e, 8) }}></div>
         </div>
       </div>
-      <button className="reset" onClick={()=>{reset()}}>Reset</button>
-    </div>
+      <button className="reset" onClick={() => { reset() }}>Reset</button>
+      <button className="back-button" onClick={() => { onBack(); reset(); }}>Back to Home</button> 
+      </div>
   )
 }
