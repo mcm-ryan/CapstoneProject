@@ -1,6 +1,6 @@
 # Team 8: Capstone Project
 
-Team Members: Mark Lopez, Ryan McMaster, Mattew Magnotta, and Jean-Jacques Akpakoun
+Team Members: Mark Lopez, Ryan McMaster, Matthew Magnotta, and Jean-Jacques Akpakoun
 
 This repository will host code for our Capstone Project. 
 
