@@ -58,11 +58,48 @@
 .boxes img{
     margin: 25px 10px;
 }
+.boxHeaderTop {
+    height: 30px;
+    width: 130px;
+    font-size: 24px;
+    margin: 25px 10px;
+    color: white;
+}
+.boxHeadersTopMargin{
+    margin-left: 150px;
+}
+.boxHeaderLeft {
+    height: 130px;
+    width: 130px;
+    font-size: 24px;
+    /* margin: 25px 10px; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 20px;
+    color: white;
+}
+.boxHeadersLeftMargin {
+    margin-top: 20px;
+}
 
 .board{
     justify-content: center;
-    height: 450px;
-    width: 564px;
-    display: flex;
+    height: 600px;
+    /* width: 564px; */
+    width: 600px;
+    /* display: flex; */
     margin: auto;
+}
+.row {
+    display: inline-flex;
+    flex-direction: row;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+}
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
 }
