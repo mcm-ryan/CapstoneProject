@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css'; // Make sure to link the CSS file
 import tictacphoto from '../Assets/tictactoe_photo.png';
+import logo from '../Assets/northrop-grumman-logo.png'
 
 
 // Game Data
@@ -22,25 +23,28 @@ const Home = ({ onPlay }) => {
     return (
         <div className="home-container">
             <header className="home-header">
-                <h1>Tic Talk Toe</h1>
-                <nav className="header-nav">
-                <div className="dropdown">
-                        <button className="dropbtn">About</button>
-                        <div className="dropdown-content">
-                            <a href="#">Our Story</a>
-                            <a href="#">How it Works</a>
-                            <a href="#">Contact Us</a>
+                <div className='home-content'>
+                    <img className='logo' src={logo} />
+                    <h1>Tic Talk Toe</h1>
+                    <nav className="header-nav">
+                        <div className="dropdown">
+                            <button className="dropbtn">About</button>
+                            <div className="dropdown-content">
+                                <a href="#">Our Story</a>
+                                <a href="#">How it Works</a>
+                                <a href="#">Contact Us</a>
+                            </div>
                         </div>
-                    </div>
-                    <button className="sign-up-btn">Sign Up</button>
-                    <button className="sign-in-btn">Sign In</button>
-                </nav>
+                        <button className="sign-up-btn">Sign Up</button>
+                        <button className="sign-in-btn">Sign In</button>
+                    </nav>
+                </div>
             </header>
             <div className="game-grid">
                 {games.map((game, index) => (
                     <div key={index} className="game-card">
                         <h3>{game.name}</h3>
-                        <img src={game.imgSrc} alt={game.name} className="game-image"/>
+                        <img src={game.imgSrc} alt={game.name} className="game-image" />
                         <button className="play-button" onClick={() => onPlay(game.name)}>Play Game</button>
                     </div>
                 ))}

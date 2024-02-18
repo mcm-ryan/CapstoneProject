@@ -6,11 +6,11 @@ import { TicTacToe } from './Components/TicTacToe/TicTacToe.jsx';
 function App({onBack}) {
 
   const [currentGame, setCurrentGame] = useState(null); // null when no game is selected
-  const [opacity, setOpacity] = useState(1); // Opacity state
 
 
 
   const playGame = (gameName) => {
+    
       setCurrentGame(gameName); // Set the current game based on the game selected
   };
 

@@ -95,8 +95,12 @@ export const TicTacToe = ({ onBack }) => {
 
 
   return (
+
     <div className='container'>
+      <button className="back-button" onClick={() => { onBack(); reset(); }}>&lt;</button>
+
       <h1 className='title' ref={titleRef}>Tic Talk Toe</h1>
+
       <div className='board'>
         <div className='row1'>
           <div className="boxes" ref={box1} onClick={(e) => { toggle(e, 0) }}></div>
@@ -115,7 +119,6 @@ export const TicTacToe = ({ onBack }) => {
         </div>
       </div>
       <button className="reset" onClick={() => { reset() }}>Reset</button>
-      <button className="back-button" onClick={() => { onBack(); reset(); }}>Back to Home</button> 
-      </div>
+    </div>
   )
 }
