@@ -18,7 +18,7 @@
 
 }
 
-.reset {
+.game-button {
     background-color: white;
     /* Green */
     border: none;
@@ -36,7 +36,7 @@
     transition-duration: 0.4s;
 }
 
-.reset:hover {
+.game-button:hover {
     background-color: grey;
     color: white;
     font-weight: bold;
@@ -74,7 +74,7 @@
     font-size: 24px;
     /* margin: 25px 10px; */
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     padding-right: 20px;
     color: white;
@@ -102,4 +102,11 @@
 .flex-wrap{
     display: flex;
     flex-wrap: wrap;
+}
+.gameMessage{
+    font-size: 24px;
+    color: white;
+}
+.ready-clicked{
+    background-color: grey;
 }
