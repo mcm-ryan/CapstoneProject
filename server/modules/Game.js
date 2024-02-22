@@ -148,7 +148,7 @@ class Game {
         // Check rows and columns
         for (let i = 0; i < 3; i++) {
             // Check rows
-            if (i === 0) console.log(grid[i])
+                
             if (grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2] && grid[i][0] !== '') {
                 // console.log('WInner is ' + grid[i][0])
                 return grid[i][0]; // Return the winner ('X' or 'O')
