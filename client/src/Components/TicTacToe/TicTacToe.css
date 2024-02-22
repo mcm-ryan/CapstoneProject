@@ -22,17 +22,16 @@
     background-color: white;
     /* Green */
     border: none;
-    color: #0069B0;
+    color: darkgrey;
     
 
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 26px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
     transition-duration: 0.4s;
 }
 
@@ -109,4 +108,28 @@
 }
 .ready-clicked{
     background-color: grey;
+}
+.back-button {
+    position: fixed; /* Positions the button relative to the viewport */
+    top: 20px; /* Adjusts the top position */
+    left: 20px; /* Adjusts the left position */
+    background-color: #00269a;
+    padding: 10px 16px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    z-index: 1000; /* Ensures the button stays above other content */
+}
+
+/* Additional styling for hover effect */
+.back-button:hover {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
 }

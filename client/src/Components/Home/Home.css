@@ -1,0 +1,192 @@
+/* Home.css */
+.home-container {
+    text-align: center;
+    color: #0069B0;
+    /* Primary color */
+    height: 100vh;
+    /* Full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f0f0f0;
+    /* Light grey background */
+}
+
+.logo {
+    height: 50px;
+    margin-right: 20px;
+    /* Adds some space between the logo and the next item */
+}
+
+.home-header {
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000000;
+    /* Primary color */
+    color: white;
+    /* White text */
+    font-size: 30px;
+}
+
+.home-content {
+    display: flex;
+    /* This will vertically center the items in the header */
+    justify-content: space-between;
+    align-items: center;
+    /* This spaces out your header items; adjust as needed */
+    /* Other styling for your header */
+
+
+}
+
+
+
+.play-button {
+    background-color: #00269a;
+    /* Green */
+    border: none;
+    color: white;
+
+
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.play-button:hover {
+    background-color: #006FFF;
+    color: white;
+    font-weight: bold;
+    /* Darker Green */
+}
+
+.header-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    gap: 10px;
+    /* Adjust based on your design preference */
+}
+
+
+.sign-in-btn {
+    padding: 10px 15px;
+    background-color: #000000;
+    /* Primary color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.sign-up-btn {
+    border-style: solid;
+    border-color: transparent; /* Makes the top and bottom borders transparent */
+    border-left-color: white; /* Makes the left border white */
+    border-right-color: white; /* Makes the right border white */
+    border-width: 10px; /* Adjust the width as needed */
+    padding: 10px 15px;
+    background-color: #000000;
+    /* Primary color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.sign-in-btn:hover,
+.sign-up-btn:hover {
+    background-color: #000000;
+    /* Darker shade for hover effect */
+}
+
+.dropbtn {
+    font-size: 20px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.dropbtn {
+    background-color: #000000;
+    /* Primary color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #005085;
+}
+
+.game-grid {
+    margin-top: 90px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* Adjust based on your design preference */
+    padding: 20px;
+}
+
+.game-card {
+    width: 400px;
+    /* Adjust based on your design preference */
+    border: 1px solid #ddd;
+    /* Light grey border */
+    border-radius: 4px;
+    overflow: hidden;
+    text-align: center;
+    background-color: white;
+    margin: 30px;
+    height: max-content;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 32px;
+    color: black
+}
+
+.game-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
