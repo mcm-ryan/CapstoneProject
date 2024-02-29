@@ -2,6 +2,8 @@
     text-align: center;
 }
 
+
+
 .title {
     margin-top: 50px;
     color: white;
@@ -113,10 +115,10 @@
     position: fixed; /* Positions the button relative to the viewport */
     top: 20px; /* Adjusts the top position */
     left: 20px; /* Adjusts the left position */
-    background-color: #00269a;
+    background-color: white;
     padding: 10px 16px;
     border: none;
-    color: white;
+    color: darkgrey;
     text-align: center;
     text-decoration: none;
     display: inline-block;

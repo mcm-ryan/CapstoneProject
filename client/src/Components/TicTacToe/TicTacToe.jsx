@@ -3,11 +3,16 @@ import './TicTacToe.css';
 import circle_icon from '../Assets/circle.png';
 import cross_icon from '../Assets/cross.png';
 
-export const TicTacToe = () => {
+export const TicTacToe = ({ onBack }) => {
   // const delay = ms => new Promise(res => setTimeout(res, ms)); /* Delay use to ask server if it is player turn and update grid*/
   const [roomID, setRoomID] = useState(null)
   const [gameMessage, setGameMessage] = useState('')
   const [isReady, setIsReady] = useState(false)
+  const [showHome, setShowHome] = useState(false);
+
+  const onPlay = () => {
+    setShowHome(true);
+  };
 
   const [grid, setGrid] = useState([['', '', ''],     /*A0 A1 A2 */
   ['', '', ''],     /*B0 B1 B2 */
@@ -44,6 +49,7 @@ export const TicTacToe = () => {
       setRoomID(res.roomID)
     })
   }
+
   /* Runs after you joined a room. Sets the player status to ready. Once both players have set to ready, game will start. */
   async function startGame(e) {
     e.target.classList.add('ready-clicked')
@@ -60,8 +66,26 @@ export const TicTacToe = () => {
 
     })
   }
+
+  function goHome() {
+
+
+  }
+
   /* TO DO: Currently resets all rooms to null. Does not work properly and should only reset the current room to play again. */
   function reset() {
+    setRoomID(null);
+    setGameMessage('');
+    setIsReady(false);
+    setGrid([
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ]);
+    setWinner('');
+    setPlayerTurn(false);
+    titleRef.current.innerHTML = 'Tic Talk Toe';
+
     fetch('http://localhost:3001/game/reset/', {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
     })
@@ -132,11 +156,18 @@ export const TicTacToe = () => {
 
   }
 
+  const handleBack = () => {
+    reset();
+    onBack();
+  };
+
   /* TO DO: 
   Provide user feedback on what is going on. Currently only displays a message and requires user to go through the steps in order: Join game, then set ready.
   Need to separate in another page forcing the user to join a game first, then directing here to the lobby. */
   return (
     <div className='container'>
+      <button className="back-button" onClick={handleBack}>&lt;</button>
+
       <h1 className='title' ref={titleRef}>Tic Talk Toe</h1>
 
       <div className='board'>

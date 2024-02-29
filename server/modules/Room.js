@@ -6,7 +6,7 @@ class Room {
             this.playersInRoom = [],
             this.game = null,
             this.status = 'inactive',
-            this.numPlayers =0
+            this.numPlayers = 0
     }
     isFull() {
         return this.playersInRoom.length === this.roomSize
