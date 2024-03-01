@@ -5,7 +5,7 @@ This repository hosts our code for our Capstone Project. Our sponsor, Northrop G
 ## Steps to run the code:
   *Assuming you already have node installed on your local machine*
 
-  1) Clone the repository into a local directory of yopur choice.
+  1) Clone the repository into a local directory of your choice.
      
   2) 'cd' into the client folder and run the following commands:
      
