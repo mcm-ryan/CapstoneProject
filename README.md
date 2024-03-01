@@ -1,6 +1,6 @@
 # Welcome to Tic Talk Toe!
 
-This repository hosts our code for our Capstone Project. Our sponsor, Northrop Grumman, has tasked use with creating a Voice Recognition/Identification application that allows user to play multiplayer games using voice commands. 
+This repository hosts our code for our Capstone Project. Our sponsor, Northrop Grumman, has tasked us with creating a Voice Recognition/Identification application that allows user to play multiplayer games using voice commands. 
 
 ## Steps to run the code:
   *Assuming you already have node installed on your local machine*
