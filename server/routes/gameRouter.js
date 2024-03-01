@@ -3,9 +3,8 @@ const router = express.Router();
 const Game = require('../modules/Game')
 const Room = require('../modules/Room')
 const uuid = require('uuid')
+
 let rooms = [] /* Stores Room objects*/
-
-
   function askQuestion(query) {
   
     return new Promise(resolve => readline.question(query, ans => {
@@ -13,10 +12,12 @@ let rooms = [] /* Stores Room objects*/
         resolve(ans);
     }))
 }
+
 /* Finds the next available room by finding the first non full room */
 function findNextAvailableRoom(){
   return rooms.find(room => !room.isFull())
 }
+
 /* Finds a player's room based on the player's name */
 function findPlayerRoom(player){
   return rooms.find(room => room.hasPlayer(player) )
@@ -49,12 +50,14 @@ router.post('/move', async function(req, res, next) {
     res.status(401).json({message: 'Move not valid'})
     return
   }
+  
   let returnValue = {
     grid: [[]],
     winner: "",
     isAccepted : false
 
   }
+
   /* Process user move and updates game state.
      If move is valid, returns updated state.
      If move not valid, no change in game grid*/
@@ -62,27 +65,31 @@ router.post('/move', async function(req, res, next) {
     returnValue.isAccepted = true
     console.log('User move accepted, proceed with grid changes');
   }
+
   /* if game is Over, sends winner back to client */
   if(game.state.isOver){
     returnValue = {'grid': game.state.grid, winner: game.checkWinner(), isAccepted: true}
     console.log('Winner is '+ game.checkWinner())
   }
+
   returnValue.grid = game.state.grid
   /* Send information back to user */
   res.json(returnValue)
   /* TO DO: Game ended, delete room from rooms array */
   if(game.state.isOver){
     return
-  //   room = null
+  // room = null
   // rooms.splice(rooms.indexOf(room), 1)
   }
 });
+
 /* reset Every room. TO DO: Only reset current game. */
 router.get('/reset', function(req,res,next){
   console.log("GET /reset")
   rooms= []
   res.status(200).send('Successfully reset')
-})
+});
+
 /* Route for client to join a room. Required before starting a game. */
 router.get('/join', async function(req, res, next) {
   console.log("GET /join")
