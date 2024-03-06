@@ -8,12 +8,7 @@ export const TicTacToe = ({ onBack }) => {
   const [roomID, setRoomID] = useState(null); /* State to store room ID */
   const [gameMessage, setGameMessage] = useState(''); /* State to display game messages */
   const [isReady, setIsReady] = useState(false); /* State to track player readiness */
-  const [showHome, setShowHome] = useState(false); /* State to control display of home screen */
 
-  // Function to go back to home screen
-  const onPlay = () => {
-    setShowHome(true);
-  };
 
   // State variables for game logic
   const [grid, setGrid] = useState([['', '', ''], /* Game grid */
