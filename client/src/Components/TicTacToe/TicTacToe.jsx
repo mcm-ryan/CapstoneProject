@@ -1,79 +1,60 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './TicTacToe.css';
-import circle_icon from '../Assets/circle.png';
-import cross_icon from '../Assets/cross.png';
+import './TicTacToe.css'; /* Import CSS styles for the TicTacToe component */
+import circle_icon from '../Assets/circle.png'; /* Import circle icon image */
+import cross_icon from '../Assets/cross.png'; /* Import cross icon image */
 
 export const TicTacToe = ({ onBack }) => {
-  // const delay = ms => new Promise(res => setTimeout(res, ms)); /* Delay use to ask server if it is player turn and update grid*/
-  const [roomID, setRoomID] = useState(null)
-  const [gameMessage, setGameMessage] = useState('')
-  const [isReady, setIsReady] = useState(false)
-  const [showHome, setShowHome] = useState(false);
+  // Define state variables
+  const [roomID, setRoomID] = useState(null); /* State to store room ID */
+  const [gameMessage, setGameMessage] = useState(''); /* State to display game messages */
+  const [isReady, setIsReady] = useState(false); /* State to track player readiness */
+  const [showHome, setShowHome] = useState(false); /* State to control display of home screen */
 
+  // Function to go back to home screen
   const onPlay = () => {
     setShowHome(true);
   };
 
-  const [grid, setGrid] = useState([['', '', ''],     /*A0 A1 A2 */
-  ['', '', ''],     /*B0 B1 B2 */
-  ['', '', '']      /*C0 C1 C2*/
-  ])
-  const [winner, setWinner] = useState('')
-  const [playerTurn, setPlayerTurn] = useState(false) /* Player 1 defaults to false*/
-  /* Runs the waitForYourTurn Function every 5 sec. */
-  setTimeout(winner === '' ? waitForYourTurn : null, 5000)
-  useEffect(() => {
-    // console.log(grid)
-    // console.log(winner)
-    if (winner === "X") {
-      titleRef.current.innerHTML = 'Winner:   <img src=' + cross_icon + '>';
-    } else if (winner === "O") {
-      titleRef.current.innerHTML = 'Winner:   <img src=' + circle_icon + '>';
-    }
+  // State variables for game logic
+  const [grid, setGrid] = useState([['', '', ''], /* Game grid */
+  ['', '', ''], /* Game grid */
+  ['', '', ''] /* Game grid */
+  ]);
+  const [winner, setWinner] = useState(''); /* State to store winner */
+  const [playerTurn, setPlayerTurn] = useState(false); /* State to track player's turn */
 
-
-  }, [winner])
+  // Ref for title element
   let titleRef = useRef(null);
 
-  /* Call to server /join in order to join a room.*/
+  // Function to join a game room
   async function joinGame() {
-
     await fetch('http://localhost:3001/game/join', {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       }
     }).then((res) => res.json()).then((res) => {
-      console.log(res)
-      /* Sets room ID to the id of the room the server put you in. */
-      setRoomID(res.roomID)
-    })
+      setRoomID(res.roomID);
+    });
   }
 
-  /* Runs after you joined a room. Sets the player status to ready. Once both players have set to ready, game will start. */
+  // Function to start the game
   async function startGame(e) {
-    e.target.classList.add('ready-clicked')
-    setIsReady(true)
+    e.target.classList.add('ready-clicked');
+    setIsReady(true);
     await fetch('http://localhost:3001/game/ready', {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-
     }).then((res) => res.json()).then((res) => {
-      console.log(res)
-      // setRoomID(res.roomID)
-
-    })
+      console.log(res);
+    });
   }
 
-  function goHome() {
-
-
-  }
-
-  /* TO DO: Currently resets all rooms to null. Does not work properly and should only reset the current room to play again. */
+  // Function to reset the game
   function reset() {
+    // Reset all states and call the reset endpoint
     setRoomID(null);
     setGameMessage('');
     setIsReady(false);
@@ -85,85 +66,77 @@ export const TicTacToe = ({ onBack }) => {
     setWinner('');
     setPlayerTurn(false);
     titleRef.current.innerHTML = 'Tic Talk Toe';
-
     fetch('http://localhost:3001/game/reset/', {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-    })
+      method: "GET",
+    });
   }
 
-  // Function that runs on defined time interval to retrieve data changes from server, and decide whose turn it is
-  async function waitForYourTurn() {
-    if (roomID === null) {
-      console.log('Dont run, no roomID')
-      return
-    }
-    if (winner !== '') {
-      console.log('Winner found, dont run again')
-      return
-    }
-    fetch('http://localhost:3001/game/waitTurn/', {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(res => res.json()).then(async res => {
-      console.log(res)
-      setGameMessage(res.message)
-      // setPlayerTurn(res.wait)
-      if (res.grid) {
-        setGrid(res.grid)
-      }
-      if (res.playerTurn) {
-        console.log('It is your turn, grid should update')
-
-        setPlayerTurn(res.playerTurn)
-      }
-      if (res.winner) {
-        setWinner(res.winner)
-      }
-    })
-  }
-
+  // Function to handle cell click in the grid
   const gridCellToggle = async (e, row, col) => {
-    /* Do nothing if it is not your turn */
-    if (!playerTurn) return
-    /* Sets move to grid value */
-    const move = e.target.getAttribute('value')
-    /* Call to server to handle move */
+    if (!playerTurn) return; // Do nothing if it is not player's turn
+    const move = e.target.getAttribute('value'); // Get move
+    // Send move to server
     fetch('http://localhost:3001/game/move/', {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      // mode: "cors", // no-cors, *cors, same-origin
-      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: "same-origin", // include, *same-origin, omit
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({ move: move, roomID: roomID })
     }).then((res) => res.json()).then(async (res) => {
       if (res.isAccepted) {
-        console.log("Move accepted , should update grid")
-        console.log(res.grid)
-        setGrid(res.grid)
+        setGrid(res.grid);
         if (res.winner !== '') {
-          setWinner(res.winner)
+          setWinner(res.winner);
         }
-        waitForYourTurn()
       }
-
-    })
-
-  }
-
-  const handleBack = () => {
-    reset();
-    onBack();
+    });
   };
 
+  // Function to handle back button click
+  const handleBack = () => {
+    reset(); // Reset the game
+    onBack(); // Go back to home screen
+  };
+
+  // Function to wait for player's turn
+  async function waitForYourTurn() {
+    if (roomID === null || winner !== '') return; // If no roomID or winner found, return
+    // Fetch data from server
+    fetch('http://localhost:3001/game/waitTurn/', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(res => res.json()).then(async res => {
+      setGameMessage(res.message); // Set game message
+      if (res.grid) {
+        setGrid(res.grid); // Update grid if available
+      }
+      if (res.playerTurn) {
+        setPlayerTurn(res.playerTurn); // Set player's turn
+      }
+      if (res.winner) {
+        setWinner(res.winner); // Set winner if available
+      }
+    });
+  }
+
+  // Use effect to update game UI based on winner
+  useEffect(() => {
+    if (winner === "X") {
+      titleRef.current.innerHTML = 'Winner:   <img src=' + cross_icon + '>';
+    } else if (winner === "O") {
+      titleRef.current.innerHTML = 'Winner:   <img src=' + circle_icon + '>';
+    }
+  }, [winner]);
+
+  // Call waitForYourTurn function every 5 seconds
+  setTimeout(winner === '' ? waitForYourTurn : null, 5000);
+
   /* TO DO: 
-  Provide user feedback on what is going on. Currently only displays a message and requires user to go through the steps in order: Join game, then set ready.
-  Need to separate in another page forcing the user to join a game first, then directing here to the lobby. */
+    Provide user feedback on what is going on. Currently only displays a message and requires user to go through the steps in order: Join game, then set ready.
+    Need to separate in another page forcing the user to join a game first, then directing here to the lobby. */
+
   return (
     <div className='container'>
       <button className="back-button" onClick={handleBack}>&lt;</button>
