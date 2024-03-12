@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Game = require('../modules/Game')
-const Room = require('../modules/Room')
+const Game = require('../models/Game')
+const Room = require('../models/Room')
 const uuid = require('uuid')
 
 let rooms = [] /* Stores Room objects*/

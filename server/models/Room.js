@@ -1,5 +1,5 @@
 // Import Game module
-const Game = require('../modules/Game');
+const Game = require('./Game');
 
 // Define the Room class
 class Room {
