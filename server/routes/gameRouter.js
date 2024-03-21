@@ -96,7 +96,7 @@ router.get('/join', async function(req, res, next) {
   let player = req.headers.origin
   let isInRoom = findPlayerRoom(player)
   if(isInRoom !== undefined){
-    res.status('200').json({message: "Player already in a room"})
+    res.status('200').json({message: "Player already in a room", roomID: isInRoom.roomId})
     return
   }
   let room = findNextAvailableRoom()
