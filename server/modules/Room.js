@@ -29,6 +29,8 @@ class Room {
 
     // Check if all players in the room are ready
     areAllReady() {
+        if(this.numPlayers !== this.roomSize)
+        return false
         return this.playersInRoom.every(({ player, status }) => {
             return status === 'Ready';
         });
