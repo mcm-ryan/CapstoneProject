@@ -2,11 +2,11 @@ const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
     clientId: 'tictactoe-game',
-    brokers: ['localhost:9092'],
+    brokers: ['192.168.49.2:31000'],
     sasl: {
         mechanism: 'plain', // Change this according to your Kafka cluster's configuration
         username: 'user1', // Use your SASL username
-        password: 'JaqupVdCMB' // Use your SASL password
+        password: 'n2Vk3YksWN' // Use your SASL password
     },
 });
 
@@ -19,6 +19,7 @@ const admin = kafka.admin();
 
 
 
+
 // Connect the producer and consumer
 const connectKafka = async () => {
     await producer.connect();
@@ -26,71 +27,77 @@ const connectKafka = async () => {
 }
 
 
-const createTopic = async (topicName) => {
-    await admin.connect();
-    //await admin.listTopics();
 
-    // const topicsToCreate = [{
-    //     topic: topicName,
-    //     numPartitions: 1, // Customize based on your needs
-    //     replicationFactor: 1 // Customize based on your cluster setup
-    // }];
-    // await admin.createTopics({
-    //     waitForLeaders: true,
-    //     topics: topicsToCreate,
-    // });
-    // console.log(`Topic ${topicName} created successfully.`);
-    await admin.disconnect();
-};
+async function createTopic() {
+    try {
+        await admin.connect();
 
+        await admin.createTopics({
+            topics: [{
+                topic: 'test-topic',
+                numPartitions: 3,
+                replicationFactor: 1
+            }]
+        });
 
-const sendDemoMessage = async () => {
+        console.log('Topic created successfully');
+    } catch (error) {
+        console.error('Error creating topic:', error);
+    } finally {
+        await admin.disconnect();
+    }
+}
+
+// Function to produce a message to a topic
+const produceMessage = async (topic, key, value) => {
     await producer.send({
-        topic: 'example',
+        topic,
         messages: [
-            { key: 'key1', value: 'hello world' },
-            { key: 'key2', value: 'hey hey!' }
+            { key, value },
         ],
-    })
+    });
 }
 
 
+// Function to consume messages from a topic
+const consumeMessages = async (topic) => {
+    await consumer.subscribe({ topic });
 
-    // // Function to process incoming messages (example for game moves)
-    // const processMessages = async () => {
-    //     await consumer.subscribe({ topic: 'game-moves', fromBeginning: true });
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            console.log({
+                topic,
+                partition,
+                offset: message.offset,
+                key: message.key.toString(),
+                value: message.value.toString(),
+            });
+        },
+    });
+}
 
-    //     await consumer.run({
-    //         eachMessage: async ({ topic, partition, message }) => {
-    //             const gameId = message.key.toString();
-    //             const move = JSON.parse(message.value.toString());
-    //             // Process the move, update game state, etc.
-    //             // You may want to call a function from Game.js here
-    //         },
-    //     });
-    // }
+// Function to disconnect Kafka clients
+const disconnectKafka = async () => {
+    console.log('Disconnecting Kafka client...');
 
-    // Function to disconnect Kafka clients
-    const disconnectKafka = async () => {
-        console.log('Disconnecting Kafka client...');
-
-        // Consumer should be stopped before the producer to ensure all messages are processed.
-        if (consumer) {
-            console.log('Disconnecting Kafka consumer...');
-            await consumer.disconnect();
-        }
-
-        if (producer) {
-            console.log('Disconnecting Kafka producer...');
-            await producer.disconnect();
-        }
-
-        console.log('Kafka client disconnected successfully');
+    // Consumer should be stopped before the producer to ensure all messages are processed.
+    if (consumer) {
+        console.log('Disconnecting Kafka consumer...');
+        await consumer.disconnect();
     }
 
-    module.exports = {
-        connectKafka,
-        createTopic,
-        sendDemoMessage,
-        disconnectKafka
-    };
+    if (producer) {
+        console.log('Disconnecting Kafka producer...');
+        await producer.disconnect();
+    }
+
+    console.log('Kafka client disconnected successfully');
+}
+
+module.exports = {
+    connectKafka,
+    produceMessage,
+    consumeMessages,
+    createTopic,
+    disconnectKafka
+};
