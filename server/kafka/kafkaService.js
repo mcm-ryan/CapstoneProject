@@ -1,12 +1,12 @@
 const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
-    clientId: 'tictactoe-game',
-    brokers: ['192.168.49.2:31000'],
+    clientId: 'tictalktoe',
+    brokers: ['192.168.49.2:30005'],
     sasl: {
         mechanism: 'plain', // Change this according to your Kafka cluster's configuration
         username: 'user1', // Use your SASL username
-        password: 'n2Vk3YksWN' // Use your SASL password
+        password: 'OEJat39I5p' // Use your SASL password
     },
 });
 
@@ -16,6 +16,7 @@ const producer = kafka.producer();
 const consumer = kafka.consumer({ groupId: 'tictactoe-game-group' });
 // Admin instance for managing topics
 const admin = kafka.admin();
+//console.log(admin.listTopics())
 
 
 
@@ -26,19 +27,25 @@ const connectKafka = async () => {
     await consumer.connect();
 }
 
+async function deleteTopic() {
+    await admin.deleteTopics({
+        topics: ["test-topic"]
+    })
+}
 
-
-async function createTopic() {
+async function createTopic(topicName) {
     try {
         await admin.connect();
 
         await admin.createTopics({
             topics: [{
-                topic: 'test-topic',
+                topic: topicName,
                 numPartitions: 3,
                 replicationFactor: 1
             }]
         });
+
+        admin.listTopics();
 
         console.log('Topic created successfully');
     } catch (error) {
@@ -50,30 +57,32 @@ async function createTopic() {
 
 // Function to produce a message to a topic
 const produceMessage = async (topic, key, value) => {
-    await producer.send({
+    const sendMessageResult = await producer.send({
         topic,
         messages: [
             { key, value },
         ],
     });
+
+    console.log('Message produced successfully:', messages);
 }
 
 
 // Function to consume messages from a topic
 const consumeMessages = async (topic) => {
-    await consumer.subscribe({ topic });
+    await consumer.subscribe({ topic, fromBeginning: true } );
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
+          try {
             console.log({
-                topic,
-                partition,
-                offset: message.offset,
-                key: message.key.toString(),
-                value: message.value.toString(),
+              value: message.value.toString(),
             });
+          } catch (error) {
+            console.error('Error processing message:', error);
+          }
         },
-    });
+      });
 }
 
 // Function to disconnect Kafka clients
@@ -99,5 +108,6 @@ module.exports = {
     produceMessage,
     consumeMessages,
     createTopic,
-    disconnectKafka
-};
+    disconnectKafka, 
+    deleteTopic
+}

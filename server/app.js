@@ -29,10 +29,13 @@ const server = app.listen(port, () => {
         await kafkaService.connectKafka();
         console.log('Kafka connected successfully');
         console.log('Kafka consumer running');
+        //await kafkaService.createTopic('test2');
+        //await kafkaService.produceMessage('test', 'key1', 'Hello, this is the a demo message')
+        await kafkaService.consumeMessages('test2');
 
         // Create Kafka topics
         const topicName = 'demo-topic';
-        //await kafkaService.createTopic(topicName);
+        //await kafkaService.deleteTopic();
 
         // Start sending or consuming messages here if needed
 
