@@ -30,7 +30,7 @@ const Home = ({ onPlay }) => {
                         <div className="dropdown">
                             <button className="dropbtn">About</button>
                             <div className="dropdown-content">
-                                <a href="https://www.google.com/">Our Story</a>
+                                <a href="https://capstoneuno.s3.us-east-2.amazonaws.com/index.html">Our Story</a>
                                 <a href="https://www.google.com/">How it Works</a>
                                 <a href="https://www.google.com/">Contact Us</a>
                             </div>
