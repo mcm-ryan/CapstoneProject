@@ -10,7 +10,9 @@
         "monospaceLinks": true
     },
     "opts": {
-        "destination": "./jsdoc",          
-        "recurse": true
+        "destination": "./jsdoc", 
+        "recurse": true,         
+        "template": "./template",
+        "tutorials": "./tutorials"
         }
 }

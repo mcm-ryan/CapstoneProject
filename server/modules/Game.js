@@ -1,7 +1,14 @@
 /**
+ * 
+ * @module server
+ */
+
+
+/**
 * Represents a Tic Tac Toe Game
 * @class
 */
+
 class Game {
     constructor() {
         this.state = {
@@ -64,7 +71,7 @@ class Game {
     }
 
     /**
-   * Translates user's intended move from cell coordinates to X, Y coodinmates
+   * Translates user's intended move from cell coordinates to X, Y coordinates
    * @param {String} movestring - String representing cell coordinates
    * @returns {Array} [x, y] coordinates of user's intended move
    */

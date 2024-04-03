@@ -1,5 +1,13 @@
+/**
+ * 
+ * @module server
+ */
 
 const Game = require('../modules/Game')
+/**
+ * 
+ * 
+ */
 
 /**
  * Represents the Lobby
