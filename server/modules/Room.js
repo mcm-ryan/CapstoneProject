@@ -1,6 +1,6 @@
 /**
  * 
- * @module server
+ * @module server/modules
  */
 
 const Game = require('../modules/Game')

@@ -1,7 +1,7 @@
 {
     "plugins": ["plugins/markdown"],
     "source": {
-        "include": ["server"],
+        "include": ["server", "client"],
         "includePattern": ".js",
         "excludePattern": "(node_modules/|jsdoc)"
     },
