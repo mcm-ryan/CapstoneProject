@@ -1,6 +1,10 @@
 /**
  * 
+<<<<<<< Updated upstream
  * @module server/modules
+=======
+ * @module server/Room
+>>>>>>> Stashed changes
  */
 
 const Game = require('../modules/Game')

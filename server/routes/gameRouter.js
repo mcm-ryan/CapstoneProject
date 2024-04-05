@@ -1,10 +1,25 @@
+/**
+ * Express router for handling game-related routes.
+ * @module server/routes/gameRouter
+ */
+
 const express = require('express');
 const router = express.Router();
 const Game = require('../modules/Game')
 const Room = require('../modules/Room')
 const uuid = require('uuid')
 
+/**
+ * Repressents a collection of rooms.
+ * @type {Room[]}
+ */
 let rooms = [] /* Stores Room objects*/
+
+/**
+ * Asks a question and returns a promsise to resolve
+ * @param {string} query - Asking a Question
+ * @returns {Promis<string} - A promise resolving to the answer
+ */
   function askQuestion(query) {
   
     return new Promise(resolve => readline.question(query, ans => {
@@ -13,12 +28,19 @@ let rooms = [] /* Stores Room objects*/
     }))
 }
 
-/* Finds the next available room by finding the first non full room */
+/**
+ * Finds the next available room.
+ * @returns {?Room} - The next available room, or null if none is found.
+ */
 function findNextAvailableRoom(){
   return rooms.find(room => !room.isFull())
 }
 
-/* Finds a player's room based on the player's name */
+/**
+ * Finds a player's room based on the player's name.
+ * @param {string} player - The name of the player.
+ * @returns {?Room} - The room the player is in, or null if not found.
+ */
 function findPlayerRoom(player){
   return rooms.find(room => room.hasPlayer(player) )
 }
@@ -27,9 +49,13 @@ function findPlayerRoom(player){
 router.get('/', async function(req, res, next) {
 });
 
-/* Post Route /move used to process client move
-   Requires the player to already be in a room
-   Requires move sent through Post body */
+/**
+ * Route handler for POST /move.
+ * Processes client move and updates game state.
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @param {import('express').NextFunction} next - The Express next middleware function.
+ */
 router.post('/move', async function(req, res, next) {
   console.log(`Post /move `)
   console.log(rooms)
@@ -90,7 +116,13 @@ router.get('/reset', function(req,res,next){
   res.status(200).send('Successfully reset')
 });
 
-/* Route for client to join a room. Required before starting a game. */
+/**
+ * Route handler for GET /join.
+ * Allows a client to join a room. Required before starting a game.
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @param {import('express').NextFunction} next - The Express next middleware function.
+ */
 router.get('/join', async function(req, res, next) {
   console.log("GET /join")
   let player = req.headers.origin
@@ -118,7 +150,13 @@ router.get('/join', async function(req, res, next) {
   
 
 });
-/* Route for client to set his status as ready. Once the two players are marked as ready, the game is created and can be played */
+/**
+ * Route handler for GET /ready.
+ * Allows a client to set their status as ready. Once both players are marked as ready, the game is created and can be played.
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @param {import('express').NextFunction} next - The Express next middleware function.
+ */
 router.get('/ready', async function(req,res,next) {
   console.log("GET /ready")
   let player = req.headers.origin
@@ -149,10 +187,15 @@ router.get('/ready', async function(req,res,next) {
   /* Any subsequent calls to /ready will return Game already started */
   res.status(200).json({message: "Game already started"})
 })
-/* Main route to update clients every time interval defined in the client source file.
-   The idea is that every T time, client makes a call to this route in order to retrieve the current state of the game. 
-   This route is also used after a user makes a move, in order to wait for his turn.
-   The player turn is determined based on the index of the player inside the room. */
+/**
+ * Main route to update clients every time interval defined in the client source file.
+ * The idea is that every T time, client makes a call to this route in order to retrieve the current state of the game.
+ * This route is also used after a user makes a move, in order to wait for their turn.
+ * The player turn is determined based on the index of the player inside the room.
+ * @param {import('express').Request} req - The Express request object.
+ * @param {import('express').Response} res - The Express response object.
+ * @param {import('express').NextFunction} next - The Express next middleware function.
+ */
 router.get('/waitTurn',  async function(req,res,next) {
   console.log("GET /waitTurn")
   let player = req.headers.origin
