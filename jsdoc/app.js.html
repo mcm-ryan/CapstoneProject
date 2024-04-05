@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: app.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: app.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const express = require('express');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const gameRouter = require('./routes/gameRouter');
+const app = express();
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
+/**
+ * The port on which the server is listening.
+ * @type {number}
+ */
+const port = 3001;
 
-    <h3> </h3>
+const cors = require('cors');
+app.use(jsonParser);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
+// Routes
 
+/**
+ * Express application index route.
+ * @type {import('express').Router}
+ */
+app.use('/', indexRouter);
 
+/**
+ * Express application users route.
+ * @type {import('express').Router}
+ */
+app.use('/users', usersRouter);
 
+/**
+ * Express application game route.
+ * @type {import('express').Router}
+ */
+app.use('/game', gameRouter);
 
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Starts the Express application server.
+ */
+app.listen(port, () => console.log('Example app is listening on port ' + port + '.' ));
+</code></pre>
+        </article>
+    </section>
 
 
 
