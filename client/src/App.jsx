@@ -1,36 +1,51 @@
 import React, { useState } from 'react';
-import './App.css';
-import Home from './Components/Home/Home.jsx'; // Import the Home component
-import { TicTacToe } from './Components/TicTacToe/TicTacToe.jsx';
+import './App.css'; /* Import CSS styles for the App component */
+import Home from './Components/Home/Home.jsx'; /* Import the Home component */
+import { TicTacToe } from './Components/TicTacToe/TicTacToe.jsx'; /* Import the TicTacToe component */
+import Login from './Components/Auth/Login.jsx'; /* Import the Login component */
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom"; /* More info available at https://reactrouter.com/en/main/router-components/browser-router  */
+import SignUp from './Components/Auth/SignUp.jsx';
 
 function App({onBack}) {
 
-  const [currentGame, setCurrentGame] = useState(null); // null when no game is selected
+  // /* Define state to track the current selected game */
+  // const [currentGame, setCurrentGame] = useState(null); /* null when no game is selected */
 
-  
+  // /* Function to set the current game based on the game selected */
+  // const playGame = (gameName) => { 
+  //   setCurrentGame(gameName); /* Set the current game based on the game selected */
+  // };
 
-  const playGame = (gameName) => { 
-    setCurrentGame(gameName); // Set the current game based on the game selected
-  };
+  // /* Function to switch back to Home component */
+  // const backToHome = () => {
+  //   setCurrentGame(null); /* Set currentGame to null to switch back to Home component */
+  // };
 
-  const backToHome = () => {
-    setCurrentGame(null); // Set currentGame to null to switch back to Home component
-  };
-
-  const renderGame = () => {
-    switch (currentGame) {
-      case 'Tic Talk Toe':
-        return <TicTacToe onBack={backToHome}/>;
-      // Add cases for other games here
-      default:
-        return <Home onPlay={playGame}/>;
-    }
-  };
+  // /* Function to render the appropriate game component based on currentGame */
+  // const renderGame = () => {
+  //   switch (currentGame) {
+  //     case 'Tic Talk Toe':
+  //       return <TicTacToe onBack={backToHome}/>; /* Render TicTacToe component if selected */
+  //     /* Add cases for other games here */
+  //     default:
+  //       return <Home onPlay={playGame}/>; /* Render Home component by default */
+  //   }
+  // };
 
   return (
-    <div className="App">
-      {currentGame ? renderGame() : <Home onPlay={playGame} />}
-    </div>
+    // <div className="App"> {/* Main container for the application */}
+    //   {/* Render either the selected game or the Home component based on currentGame */}
+    //   {currentGame ? renderGame() : <Home onPlay={playGame} />} 
+    // </div>
+    <BrowserRouter basename="">
+      <Routes>
+        <Route element={<Home/>} path="/" />
+        <Route element={<Login/>} path="/login" />
+        <Route element={<SignUp/>} path="/signup" />
+        <Route element= {<TicTacToe/>} path='/Tic-Talk-Toe'/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

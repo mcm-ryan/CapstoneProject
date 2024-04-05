@@ -74,7 +74,7 @@ class Room {
         this.playersInRoom.splice(index, 1)
     }
     clearRoom() {
-
+        
     }
 }
 module.exports = Room

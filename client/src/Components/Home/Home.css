@@ -168,6 +168,7 @@
 
 .game-card {
     width: 400px;
+    padding-top: 10rem;
     /* Adjust based on your design preference */
     border: 1px solid #ddd;
     /* Light grey border */

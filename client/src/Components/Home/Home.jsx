@@ -2,12 +2,12 @@ import React from 'react';
 import './Home.css'; // Make sure to link the CSS file
 import tictacphoto from '../Assets/tictactoe_photo.png';
 import logo from '../Assets/northrop-grumman-logo.png'
-
+import { useNavigate } from 'react-router-dom';
 
 // Game Data
 const games = [
     {
-        name: 'Tic Talk Toe',
+        name: 'Tic-Talk-Toe',
         imgSrc: tictacphoto, // Replace with actual image path
         playAction: () => console.log('Play TicTalk Toe') // Placeholder action
     },
@@ -19,7 +19,12 @@ const games = [
     // Add more games as placeholders
 ];
 
-const Home = ({ onPlay }) => {
+
+const Home = () => {
+    const navigate = useNavigate()
+    function onPlay (name) {
+        navigate('/' + name)
+    }
     return (
         <div className="home-container">
             <header className="home-header">
@@ -36,7 +41,7 @@ const Home = ({ onPlay }) => {
                             </div>
                         </div>
                         <button className="sign-up-btn">Sign Up</button>
-                        <button className="sign-in-btn">Sign In</button>
+                        <button className="sign-in-btn" onClick={()=> navigate('/login')}>Sign In</button>
                     </nav>
                 </div>
             </header>
