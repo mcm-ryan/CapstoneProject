@@ -1,6 +1,6 @@
 /**
  * 
- * @module server/modules
+ * @module server/modules/Game
  */
 
 
