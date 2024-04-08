@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Game = require('../models/Game')
 const Room = require('../models/Room')
-const uuid = require('uuid')
+const uuid = require('uuid');
+const { produceMessage } = require('../kafka/kafkaService');
 
 let rooms = [] /* Stores Room objects*/
   function askQuestion(query) {
@@ -88,6 +89,7 @@ router.get('/reset', function(req,res,next){
   console.log("GET /reset")
   rooms= []
   res.status(200).send('Successfully reset')
+  produceMessage('test2', "key1", "Game Reset");
 });
 
 /* Route for client to join a room. Required before starting a game. */

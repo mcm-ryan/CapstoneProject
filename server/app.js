@@ -29,7 +29,7 @@ const server = app.listen(port, () => {
         await kafkaService.connectKafka();
         console.log('Kafka connected successfully');
         console.log('Kafka consumer running');
-        //await kafkaService.createTopic('test2');
+        //await kafkaService.createTopic('test3');
         //await kafkaService.produceMessage('test', 'key1', 'Hello, this is the a demo message')
         await kafkaService.consumeMessages('test2');
 

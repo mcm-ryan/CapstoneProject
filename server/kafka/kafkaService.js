@@ -56,15 +56,15 @@ async function createTopic(topicName) {
 }
 
 // Function to produce a message to a topic
-const produceMessage = async (topic, key, value) => {
-    const sendMessageResult = await producer.send({
+const produceMessage = async (topic, keyInput, valueInput) => {
+    await producer.send({
         topic,
         messages: [
-            { key, value },
+            { key: keyInput, value : valueInput},
         ],
     });
 
-    console.log('Message produced successfully:', messages);
+    //console.log('Message produced successfully:', messages);
 }
 
 
